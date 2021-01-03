@@ -8,9 +8,9 @@ const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = require('../keys')
 const requireLogin = require('../middleware/requireLogin')
 
-router.get('/protected',requireLogin, (req,res)=>{
-    console.log('Hello User')
-})
+// router.get('/protected',requireLogin, (req,res)=>{
+//     console.log('Hello User')
+// })
 
 router.post('/signup',(req, res) => {
    console.log(req.body.name)
