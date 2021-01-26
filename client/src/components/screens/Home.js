@@ -10,7 +10,7 @@ const Home = () => {
                 </div>
 
                 <div className="card-image">
-                <i class="material-icons" style = {{color:"red"}}>favorite</i>
+                <i className="material-icons" style = {{color:"red"}}>favorite</i>
                     <h6> title</h6>
                     <p> image body </p>
                     <input type="text" placeholder="add a comment" />
