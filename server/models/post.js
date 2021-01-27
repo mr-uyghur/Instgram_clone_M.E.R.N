@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema({
     },
     photos:{
         type:String,
-        default:"No Photo"
+        required:true
     },
     postedBy:{
         // build relationship between user

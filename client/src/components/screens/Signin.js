@@ -13,7 +13,7 @@ const Signin = () => {
             M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
             return
         }
-        fetch('http://localhost:5000/signin', {
+        fetch('/signin', {
             method:'post',
             headers:{
                 "Content-Type":"application/json"
@@ -30,7 +30,8 @@ const Signin = () => {
                 M.toast({html: data.error,classes:"#c62828 red darken-3"})
             }
             else{
-                
+                localStorage.setItem('jwt', data.token)
+                localStorage.setItem('user',JSON.stringify(data.user))
                 M.toast({html: "Login successfully",classes:"#43a047 green darken-1"})
                 // navigate user to dasboard home page after sucessful login
                 history.push('/')
