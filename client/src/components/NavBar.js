@@ -1,16 +1,33 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {Link} from 'react-router-dom'
+import {UserContext} from '../App'
 
 const NavBar = () =>{
+  const {state,dispatch} = useContext(UserContext)
+  const renderList = () =>{
+// state has details of the user
+// if use is true, profile page and create page shows
+    if(state){
+      return [
+        <li><Link to="/profile">Profile</Link></li>,
+            <li><Link to="/create">Create Post</Link></li> 
+      ]
+    } else {
+      return [
+        <li><Link to="/signin">Log in</Link></li>,
+            <li><Link to="/signup">Sign up</Link></li>
+      ]
+    }
+  }
+
+
     return (
         <nav>
         <div className="nav-wrapper white" >
-          <Link to="/" className="brand-logo ">Instagram</Link>
+          {/* link below will only showup if user (state) is true */}
+          <Link to={state ? "/" : "/signin"} className="brand-logo ">Instagram</Link>
           <ul id="nLinkv-mobile" className="right">
-            <li><Link to="/signin">Log in</Link></li>
-            <li><Link to="/signup">Sign up</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
-            <li><Link to="/create">Create Post</Link></li>
+            {renderList()}
           </ul>
         </div>
       </nav>
