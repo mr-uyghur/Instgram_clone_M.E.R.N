@@ -17,6 +17,11 @@ const postSchema = new mongoose.Schema({
     // likes model will be an array
     // each item will be an Id that refers to user model
     likes:[{type:ObjectId,ref:"User"}],
+    comments: [{
+        text:String,
+        // comment is a string and it will refer to a user Id
+        postedBy:{type:ObjectId,ref:"User"}
+    }],
     postedBy:{
         // build relationship between user
         type:ObjectId,
