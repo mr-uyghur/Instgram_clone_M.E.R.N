@@ -21,7 +21,7 @@ const Routing = () => {
     // if we have the user already then make use of history and push the user to home screen
     if (user) {
       dispatch({ type: "USER", payload: user })
-      history.push('/')
+      // history.push('/')
     }
     // if we don't have the user, redirect to login screen
     else {
