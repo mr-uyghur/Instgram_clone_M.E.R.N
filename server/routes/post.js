@@ -106,5 +106,43 @@ router.put('/comment',requireLogin,(req,res)=>{
     })
 })
 
+router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
+    Post.findOne({_id:req.params.postId})
+    .populate('postedBy',"_id")
+    .exec((err,post)=>{
+        if(err || !post){
+            return res.status(422).json({error:err})
+        }
+        if(post.postedBy._id.toString() === req.user._id.toString()){
+            post.remove()
+            .then(result=>{
+                res.json(result)
+            }).catch(err =>{
+                console.log(err)    
+            })
+        }
+    })
+})
+
+router.delete('/deletecomment/:postId/:commentId', requireLogin, async (req, res) => {
+    try {
+        let post = await Post.findOne({ _id: req.params.postId })
+            .populate("comments.postedBy", "_id username")
+            .populate("postedBy", "_id username")
+        if (!post) {
+            return res.status(404).json({ error: "Post not found" })
+        }
+        post.comments = await post.comments.filter(comment => {
+            return comment._id != req.params.commentId
+        })
+ 
+        const result = await post.save()
+        return res.json(result)
+ 
+    } catch (err) {
+        console.error("Error", err);
+    }
+})
+
 
 module.exports = router
