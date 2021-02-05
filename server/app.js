@@ -26,9 +26,10 @@ require('./models/user')
 require('./models/post')
 
 app.use(express.json())
-// regustering file in routes folder
+// registering file in routes folder
 app.use(require('./routes/auth'))
 app.use(require('./routes/post'))
+app.use(require('./routes/user'))
 
 app.listen(PORT, () => {
     console.log("Server is running on", PORT)
