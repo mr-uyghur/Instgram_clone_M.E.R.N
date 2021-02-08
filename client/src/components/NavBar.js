@@ -44,6 +44,7 @@ const NavBar = () => {
           {renderList()}
         </ul>
       </div>
+      
     </nav>
   )
 }

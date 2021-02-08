@@ -138,7 +138,7 @@ const Home = () => {
 
     return (
         <div className="home">
-            {/* use .map to show dymamic info from the data base */}
+            {/* use map to show dymamic info from the data base */}
             {
                 data.map(item => {
                     return (
