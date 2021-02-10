@@ -5,7 +5,7 @@ const requireLogin = require('../middleware/requireLogin')
 const Post = mongoose.model("Post")
 
 
-router.get('/allpost', requireLogin,(req,res) =>{
+router.get('/allpost',(req,res) =>{
     // this code will find all the post.
     Post.find()
     .populate("postedBy", "_id name")
@@ -120,7 +120,7 @@ router.put('/comment',requireLogin,(req,res)=>{
 
 router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
     Post.findOne({_id:req.params.postId})
-    .populate('postedBy',"_id")
+    .populate('postedBy',"_id name")
     .exec((err,post)=>{
         if(err || !post){
             return res.status(422).json({error:err})
@@ -139,8 +139,8 @@ router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
 router.delete('/deletecomment/:postId/:commentId', requireLogin, async (req, res) => {
     try {
         let post = await Post.findOne({ _id: req.params.postId })
-            .populate("comments.postedBy", "_id username")
-            .populate("postedBy", "_id username")
+            .populate("comments.postedBy", "_id name")
+            .populate("postedBy", "_id name")
         if (!post) {
             return res.status(404).json({ error: "Post not found" })
         }

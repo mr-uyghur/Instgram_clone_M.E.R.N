@@ -37,7 +37,7 @@ const Signin = () => {
                 dispatch({type:"USER", payload:data.user})
                 M.toast({html: "Login successfully",classes:"#43a047 green darken-1"})
                 // navigate user to dasboard home page after sucessful login
-                history.push('/')
+                history.push('/myfollowingpost')
             }
         }).catch(err=>{
             console.log(err)

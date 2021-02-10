@@ -12,7 +12,7 @@ const NavBar = () => {
       return [
         <li><Link to="/profile">Profile</Link></li>,
         <li><Link to="/create">Create Post</Link></li>,
-        <li><Link to="/myfollowingpost">My following posts</Link></li>,
+        <li><Link to="/"><button className="btn waves-effect waves-light">Explore!</button></Link></li>,
         <li>
           <button className="btn waves-effect waves-light #c62828 red darken-3"
             onClick={() =>
@@ -30,7 +30,8 @@ const NavBar = () => {
     } else {
       return [
         <li><Link to="/signin">Log in</Link></li>,
-        <li><Link to="/signup">Sign up</Link></li>
+        <li><Link to="/signup">Sign up</Link></li>,
+        <li><Link to="/"><button className="btn waves-effect waves-light">Explore!</button></Link></li>
       ]
     }
   }
@@ -40,7 +41,7 @@ const NavBar = () => {
     <nav>
       <div className="nav-wrapper white" >
         {/* link below will only showup if user (state) is true */}
-        <Link to={state ? "/" : "/signin"} className="brand-logo ">Instagram</Link>
+        <Link to={state ? "/myfollowingpost" : "/signin"} className="brand-logo ">Instagram</Link>
         <ul id="nLinkv-mobile" className="right">
           {renderList()}
         </ul>
