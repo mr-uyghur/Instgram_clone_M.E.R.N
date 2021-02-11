@@ -8,8 +8,8 @@ const Post = mongoose.model("Post")
 router.get('/allpost',(req,res) =>{
     // this code will find all the post.
     Post.find()
-    .populate("postedBy", "_id name")
-    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name pic")
+    .populate("comments.postedBy", "_id name pic")
     .then(posts => {
         res.json({posts:posts})
     })
@@ -70,7 +70,11 @@ router.put('/like',requireLogin,(req,res)=>{
         $push:{likes:req.user._id}
     },{
         new:true
-    }).exec((err,result)=>{
+    })
+    // poputlate these datas from users before exec code, to avoid glitches 
+    .populate("comments.postedBy","_id name pic")
+    .populate("postedBy","_id name pic")
+    .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }
@@ -85,7 +89,11 @@ router.put('/unlike',requireLogin,(req,res)=>{
         $pull:{likes:req.user._id}
     },{
         new:true
-    }).exec((err,result)=>{
+    })
+       // poputlate these datas from users before exec code, to avoid glitches 
+    .populate("comments.postedBy","_id name pic")
+    .populate("postedBy","_id name pic")
+    .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
         }
@@ -106,8 +114,9 @@ router.put('/comment',requireLogin,(req,res)=>{
     },{
         new:true
     })
-    .populate("comments.postedBy","_id name")
-    .populate("postedBy","_id name")
+       // poputlate these datas from users before exec code, to avoid glitches 
+    .populate("comments.postedBy","_id name pic")
+    .populate("postedBy","_id name pic")
     .exec((err,result)=>{
         if(err){
             return res.status(422).json({error:err})
@@ -120,7 +129,7 @@ router.put('/comment',requireLogin,(req,res)=>{
 
 router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
     Post.findOne({_id:req.params.postId})
-    .populate('postedBy',"_id name")
+    .populate('postedBy',"_id name pic")
     .exec((err,post)=>{
         if(err || !post){
             return res.status(422).json({error:err})
@@ -139,8 +148,9 @@ router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
 router.delete('/deletecomment/:postId/:commentId', requireLogin, async (req, res) => {
     try {
         let post = await Post.findOne({ _id: req.params.postId })
-            .populate("comments.postedBy", "_id name")
-            .populate("postedBy", "_id name")
+           // poputlate these datas from users before exec code, to avoid glitches 
+            .populate("comments.postedBy", "_id name pic")
+            .populate("postedBy", "_id name pic")
         if (!post) {
             return res.status(404).json({ error: "Post not found" })
         }
