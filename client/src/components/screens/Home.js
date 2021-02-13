@@ -165,18 +165,23 @@ const Home = () => {
                             </div>
 
                             <div className="card-image">
-                                <i className="material-icons" style={{ color: "red" }}>favorite</i>
+
                                 {/* user can only like post once, check if user is included 
                                 in the likes array, then return like or unlike button accordingly*/}
+                        
                                 {item.likes.includes(state._id) ?
+
                                     <i className="material-icons"
+                                    style={{ color: "red" }}
                                         onClick={() => { unlikePost(item._id) }}
-                                    >thumb_down</i>
+                                    >favorite</i>
                                     :
                                     <i className="material-icons"
+                                    style={{ color: "red" }}
                                         onClick={() => { likePost(item._id) }}
-                                    >thumb_up</i>
+                                    >favorite_border</i>
                                 }
+
 
 
                                 {/* show the number of likes by getting the length of likes array */}

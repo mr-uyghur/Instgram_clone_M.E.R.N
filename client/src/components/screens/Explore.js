@@ -29,8 +29,10 @@ const Home = () => {
                 data.map(item => {
                     return (
                         <div className="card home-card" key={item._id}>
-                            <h5>
-                        <Link to = { "/profile/"+item.postedBy._id } >{item.postedBy.name} </Link>
+                            <h5 style = {{padding:"5px"}}>
+                        <Link to = { "/profile/"+item.postedBy._id } >
+                        <img style={{ width: "30px", height: "30px", borderRadius: "80px" }} src={item.postedBy.pic} />
+                            {item.postedBy.name} </Link>
                 
 
                             </h5>

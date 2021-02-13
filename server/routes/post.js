@@ -20,8 +20,8 @@ router.get('/allpost',(req,res) =>{
 router.get('/getsubpost', requireLogin,(req,res) =>{
     // this code will find all the post the logged in user is following
     Post.find({postedBy:{$in:req.user.following}})
-    .populate("postedBy", "_id name")
-    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name pic")
+    .populate("comments.postedBy", "_id name pic")
     .then(posts => {
         res.json({posts:posts})
     })

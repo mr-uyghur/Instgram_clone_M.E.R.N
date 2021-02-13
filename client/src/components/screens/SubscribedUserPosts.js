@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { UserContext } from '../../App'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 const Home = () => {
@@ -144,7 +144,10 @@ const Home = () => {
                     return (
                         <div className="card home-card" key={item._id}>
                             <h5>
-                        <Link to = {item.postedBy._id !== state._id? "/profile/"+item.postedBy._id :"/profile" } >{item.postedBy.name} </Link>
+                                <Link to={item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile"} >
+                                    <img style={{ width: "30px", height: "30px", borderRadius: "80px" }} src={item.postedBy.pic} />
+                                    {item.postedBy.name}
+                                </Link>
                                 {item.postedBy._id == state._id
                                     && <i className="material-icons"
                                         style={{ float: "right", color: "red" }}
@@ -159,24 +162,27 @@ const Home = () => {
                             </div>
 
                             <div className="card-image">
-                                <i className="material-icons" style={{ color: "red" }}>favorite</i>
+                                
                                 {/* user can only like post once, check if user is included 
                                 in the likes array, then return like or unlike button accordingly*/}
                                 {item.likes.includes(state._id) ?
+
                                     <i className="material-icons"
+                                        style={{ color: "red" }}
                                         onClick={() => { unlikePost(item._id) }}
-                                    >thumb_down</i>
+                                    >favorite</i>
                                     :
                                     <i className="material-icons"
+                                        style={{ color: "red" }}
                                         onClick={() => { likePost(item._id) }}
-                                    >thumb_up</i>
+                                    >favorite_border</i>
                                 }
 
 
                                 {/* show the number of likes by getting the length of likes array */}
                                 <h6> {item.likes.length} likes</h6>
-                                <h6> {item.title}</h6>
-                                <p> {item.body} </p>
+                                <h6> title: {item.title}</h6>
+                                <p> description: {item.body} </p>
 
                                 {
                                     item.comments.map((record) => {
@@ -185,12 +191,12 @@ const Home = () => {
                                                 {record.postedBy._id === state._id || item.postedBy._id == state._id
                                                     ? <i className="material-icons small-icon"
                                                         onClick={() => deleteComment(item._id, record._id)}
-                                                        style={{ float: "right",fontSize: "18px" }}  >delete</i>
+                                                        style={{ float: "right", fontSize: "18px" }}  >delete</i>
                                                     :
                                                     record.postedBy._id === state._id
                                                     && <i className="material-icons small-icon"
                                                         onClick={() => deleteComment(item._id, record._id)}
-                                                        style={{ float: "right", fontSize: "18px"}}  >delete </i>
+                                                        style={{ float: "right", fontSize: "18px" }}  >delete </i>
                                                 }
                                             </h6>
 

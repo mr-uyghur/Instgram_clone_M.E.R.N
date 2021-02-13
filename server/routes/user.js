@@ -64,5 +64,9 @@ router.put('/unfollow',requireLogin,(req,res)=>{
     )
 })
 
+router.put('/updatepic',(req,res)=>{
+    User.findByIdAndUpdate({_id:req.user._id})
+})
+
 
 module.exports = router
