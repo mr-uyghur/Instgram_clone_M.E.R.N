@@ -64,8 +64,15 @@ router.put('/unfollow',requireLogin,(req,res)=>{
     )
 })
 
-router.put('/updatepic',(req,res)=>{
-    User.findByIdAndUpdate({_id:req.user._id})
+router.put('/updatepic',requireLogin,(req,res)=>{
+    User.findByIdAndUpdate(req.user._id,{$set:{pic:req.body.pic}},{new:true},
+        (err,result)=>{
+            if(err){
+                console.log(err)
+                return res.status(422).json({error:"can't upload profile pic"})
+            }
+            res.json(result)
+    })
 })
 
 

@@ -18,6 +18,23 @@ router.post('/signup', (req, res) => {
     if (!email || !password || !name) {
         return res.status(422).json({ error: "please fill out the information" })
     }
+    
+    if (!email ) {
+        return res.status(422).json({ error: "please fill out the email" })
+    }
+    if ( !password ) {
+        return res.status(422).json({ error: "please fill out the password" })
+    }
+    if ( password.length < 8 ) {
+        return res.status(422).json({ error: "password must be at least 8 characters" })
+    }
+    if ( !name) {
+        return res.status(422).json({ error: "please fill out the user name" })
+    }
+    if ( name.length < 5) {
+        return res.status(422).json({ error: "user name must be at least 5 characters" })
+    }
+    
 
     User.findOne({ email: email })
         .then(savedUser => {

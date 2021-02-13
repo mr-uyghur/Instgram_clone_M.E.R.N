@@ -1,3 +1,4 @@
+  
 import React, { useState,useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import M from 'materialize-css'
@@ -98,6 +99,7 @@ const Signup = () => {
 
                 <input type="password"
                     placeholder="password"
+                    minlength="8"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
