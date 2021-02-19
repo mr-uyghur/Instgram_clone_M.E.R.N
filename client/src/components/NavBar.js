@@ -6,6 +6,7 @@ import M from 'materialize-css'
 const NavBar = () => {
   const searchModal = useRef(null)
   const [search, setSearch] = useState('')
+  const [userDetails, setUserDetails] = useState([])
   const { state, dispatch } = useContext(UserContext)
   const history = useHistory()
 
@@ -44,6 +45,23 @@ const NavBar = () => {
     }
   }
 
+  const fetchUsers = (query) => {
+    setSearch(query)
+    fetch('/search-users', {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        query: query
+      })
+    }).then(res => res.json())
+      .then(results => {
+        setUserDetails(results.user)
+      })
+  }
+
+
 
   return (
     <nav>
@@ -61,23 +79,27 @@ const NavBar = () => {
           <input type="text"
             placeholder="search users"
             value={search}
-            onChange={e => setSearch(e.target.value)}
+            onChange={e => fetchUsers(e.target.value)}
           />
           <ul className="collection" style={{ color: 'black' }}>
-            <li className="collection-item">Alvin</li>
-            <li className="collection-item">Alvin</li>
-            <li className="collection-item">Alvin</li>
-            <li className="collection-item">Alvin</li>
-            <li className="collection-item">Alvin</li>
-            <li className="collection-item">Alvin</li>
-            <li className="collection-item">Alvin</li>
-            <li className="collection-item">Alvin</li>
+            {userDetails.map(item => {
+
+              return <Link to={ item._id !== state._id ? '/profile/' + item._id : '/profile'} onClick={() => {
+                M.Modal.getInstance(searchModal.current).close()
+                setSearch('')
+              }}>
+
+                <li className="collection-item">user: <b>{item.name} </b>   email:<b> {item.email} </b>
+                </li> </Link>
+
+            })}
+
           </ul>
 
         </div>
 
         <div className="modal-footer">
-          <button href="#!" className="modal-close waves-effect waves-green btn-flat">search</button>
+          <button href="#!" className="modal-close waves-effect waves-green btn-flat" onClick={() => setSearch('')}>close</button>
         </div>
       </div>
 
