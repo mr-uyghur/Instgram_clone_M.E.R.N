@@ -192,7 +192,7 @@ const Home = () => {
                                 {
                                     item.comments.map((record) => {
                                         return (
-                                            <h6 key={record._id}><span style={{ fontWeight: "500" }}> {record.postedBy.name}: </span>  {record.text}
+                                            <h6 key={record._id}><Link to={record.postedBy._id !== state._id ? "/profile/" + record.postedBy._id : "/profile"} > <span style={{ fontWeight: "500" }}> {record.postedBy.name}: </span> </Link>  {record.text}
                                                 {record.postedBy._id === state._id || item.postedBy._id == state._id
                                                     ? <i className="material-icons small-icon"
                                                         onClick={() => deleteComment(item._id, record._id)}
@@ -228,4 +228,8 @@ const Home = () => {
 }
 
 export default Home
+
+
+
+
 
